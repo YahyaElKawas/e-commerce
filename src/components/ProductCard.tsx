@@ -1,6 +1,6 @@
 import { Product } from "@prisma/client"
 import PriceTag from "./PriceTag";
-
+import  Image  from 'next/image';
 interface ProductCardProbs{
     product: Product;
 }
