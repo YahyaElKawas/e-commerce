@@ -6,6 +6,8 @@ interface ProductCardProbs{
 }
 
 export default function ProductCard({product}: ProductCardProbs){
+    const isNew = Date.now() - new Date(product.createdAt).getTime() < 1000 * 60 * 60 * 24 * 7;
+    
     return (
         <div className="card w-full bg-base-100 hover: shadow-xl">
             <figure>
@@ -15,13 +17,13 @@ export default function ProductCard({product}: ProductCardProbs){
                 width={800}
                 height={400}
                 className="h-48 object-cover">
-                
                 </Image>
             </figure>
             
             <div className="card-body">
                 <h2 className="card-title">
                     {product.name}
+                    {isNew && <div className="badge badge-secondary">New</div>}
                 </h2>
                 <p>{product.description}</p>
                 <PriceTag price={product.price}></PriceTag>
