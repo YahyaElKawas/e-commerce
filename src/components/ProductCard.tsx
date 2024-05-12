@@ -1,6 +1,7 @@
 import { Product } from "@prisma/client"
 import PriceTag from "./PriceTag";
 import  Image  from 'next/image';
+import Link from "next/link";
 interface ProductCardProbs{
     product: Product;
 }
@@ -9,7 +10,7 @@ export default function ProductCard({product}: ProductCardProbs){
     const isNew = Date.now() - new Date(product.createdAt).getTime() < 1000 * 60 * 60 * 24 * 7;
     
     return (
-        <div className="card w-full bg-base-100 hover: shadow-xl">
+        <Link href={"/products/" + product.id}  className="card w-full bg-base-100 hover: shadow-xl">
             <figure>
                 <Image 
                 src={product.imageUrl} 
@@ -28,6 +29,6 @@ export default function ProductCard({product}: ProductCardProbs){
                 <p>{product.description}</p>
                 <PriceTag price={product.price}></PriceTag>
             </div>
-        </div>       
+        </Link>       
     )
 }
