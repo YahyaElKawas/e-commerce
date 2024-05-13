@@ -1,9 +1,9 @@
+Important note on line 28
+
 import Image from "next/image";
 import Link from "next/link";
 import logo from "@/assets/logo.png"
 import { redirect } from "next/navigation";
-import { getCart } from "@/lib/db/cart";
-import ShoppingCartButton from "./ShoppingCartButton";
 
 async function searchProducts(formData: FormData) {
     "use server";
@@ -14,8 +14,7 @@ async function searchProducts(formData: FormData) {
     }
 }
 
-export default async function Navbar() {
-    const cart = await getCart();
+export default function Navbar() {
     return (
         <div className="bg-base-100">
             <div className="navbar max-w-7xl m-auto flex-col sm:flex-row gap-2">
@@ -26,14 +25,13 @@ export default async function Navbar() {
                     </Link>
                 </div>
                 <div className="flex-none gap-2">
-                    <form action={searchProducts}>  {/**One can question: Why didn't we put the url directly in the action instead of using server action? Because this will reload the page which is bad user experience, instead we use server actions for better user experience*/}
+                    <form action={searchProducts}>  //One can question: Why didn't we put the url directly in the action instead of using server action? Because this will reload the page which is bad user experience, instead we use server actions for better user experience
                         <div className="form-control">
                             <input name="searchQuery" placeholder="search" className="input input-bordered w-full min-w-[100px]">
 
                             </input>
                         </div>
                     </form>
-                    <ShoppingCartButton cart={cart}></ShoppingCartButton>
                 </div>
             </div>
         </div>
