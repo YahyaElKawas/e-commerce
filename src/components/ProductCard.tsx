@@ -1,4 +1,4 @@
-import { Product } from "@prisma/client"
+import  {Product}  from "@prisma/client"
 import PriceTag from "./PriceTag";
 import  Image  from 'next/image';
 import Link from "next/link";
