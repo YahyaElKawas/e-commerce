@@ -7,25 +7,35 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model cartitems {
-  id        String @id @default(auto()) @map("_id") @db.ObjectId
-  cartId    String @db.ObjectId
-  productId String @db.ObjectId
-  quantity  Int
-}
-
-model carts {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt DateTime @db.Date
-  updatedAt DateTime @db.Date
-}
-
-model products {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt   DateTime @db.Date
+model Product {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
   description String
   imageUrl    String
   name        String
   price       Int
-  updatedAt   DateTime @db.Date
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  CartItem    CartItem[]
+
+  @@map("products") //At first we named the collection projects then we changed it to Project, this line of code to tell prisma that our collection it's name is actually products 
+}
+
+model Cart {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  items     CartItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@map("carts")
+}
+
+model CartItem {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  productId String  @db.ObjectId
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  quantity  Int
+  cartId    String  @db.ObjectId
+  cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
+
+  @@map("cartitems")
 }
