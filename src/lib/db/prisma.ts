@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client';
 import { global } from 'styled-jsx/css';
 
 const prismaClientSingleton = () => {
